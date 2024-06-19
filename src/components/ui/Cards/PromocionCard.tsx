@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Card, CardActionArea, CardContent, CardMedia, Typography, Button, CircularProgress } from '@mui/material';
+import { Card, CardActionArea, CardContent, CardMedia, Typography, Button, CircularProgress, Box } from '@mui/material';
 import IPromocion from '../../../types/IPromocion';
+import PromocionModal from '../modals/PromocionModal';
+
 
 interface PromocionCardProps {
   promocion: IPromocion;
@@ -9,6 +11,7 @@ interface PromocionCardProps {
 
 const PromocionCard: React.FC<PromocionCardProps> = ({ promocion, addToCart }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const handleAddToCart = async () => {
     try {
@@ -24,39 +27,52 @@ const PromocionCard: React.FC<PromocionCardProps> = ({ promocion, addToCart }) =
   const imageUrl = promocion.imagenes && promocion.imagenes.length > 0 ? promocion.imagenes[0].url : '';
 
   return (
-    <Card style={{ width: '100%'}}>
-      <CardActionArea>
-        {imageUrl && (
-          <CardMedia
-            component="img"
-            height="140"
-            image={imageUrl}
-            alt={promocion.denominacion}
-          />
-        )}
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {promocion.denominacion}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {promocion.descripcionDescuento}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Precio Promocional: ${promocion.precioPromocional}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <Button
-        onClick={handleAddToCart}
-        fullWidth
-        variant="contained"
-        color="primary"
-        disabled={isLoading}
-        endIcon={isLoading ? <CircularProgress size={20} color="inherit" /> : null}
-      >
-        {isLoading ? 'Agregando...' : 'Agregar al carrito'}
-      </Button>
-    </Card>
+    <>
+      <Card style={{ width: '100%' }}>
+        <CardActionArea onClick={() => setModalOpen(true)}>
+          {imageUrl && (
+            <CardMedia component="img" height="140" image={imageUrl} alt={promocion.denominacion} />
+          )}
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {promocion.denominacion}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {promocion.descripcionDescuento}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Precio Promocional: ${promocion.precioPromocional}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+        <Box>
+          <Button
+            onClick={handleAddToCart}
+            fullWidth
+            variant="contained"
+            color="primary"
+            disabled={isLoading}
+            endIcon={isLoading ? <CircularProgress size={20} color="inherit" /> : null}
+            sx={{mb: 1}}
+          >
+            {isLoading ? 'Agregando...' : 'Agregar al carrito'}
+          </Button>
+          <Button
+            onClick={() => setModalOpen(true)}
+            fullWidth
+            variant="outlined"
+            color="primary"
+          >
+            Ver Detalles
+          </Button>
+        </Box>
+      </Card>
+      <PromocionModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        promocionId={promocion.id}
+      />
+    </>
   );
 };
 
