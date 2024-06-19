@@ -86,9 +86,6 @@ const ProductoModal: React.FC<ProductoModalProps> = ({ open, onClose, productId 
                   <Typography variant="body1" gutterBottom>
                     <strong>Preparación:</strong> {producto.preparacion}
                   </Typography>
-                  <Typography variant="body1" gutterBottom>
-                    <strong>Categoría:</strong> {producto.categoriaNombre}
-                  </Typography>
                 </CardContent>
               </Box>
             </Card>

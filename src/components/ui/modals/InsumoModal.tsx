@@ -76,9 +76,6 @@ const InsumoModal: React.FC<InsumoModalProps> = ({ open, onClose, productId }) =
                   <Typography variant="h6" gutterBottom>
                  ${insumo.precioVenta}
                   </Typography>
-                  <Typography variant="body1" gutterBottom>
-                    <strong>Categoría:</strong> {insumo.categoriaNombre}
-                  </Typography>
                 </CardContent>
               </Box>
             </Card>
