@@ -39,7 +39,7 @@ const InsumoModal: React.FC<InsumoModalProps> = ({ open, onClose, productId }) =
 
   return (
     <Modal open={open} onClose={onClose}>
-      <Box sx={{ ...modalStyle, width: isMobile ? '90%' : '50%' }}>
+      <Box sx={{ ...modalStyle, width: isMobile ? '80%' : '40%' }}>
         {loading ? (
           <CircularProgress />
         ) : (
@@ -74,7 +74,7 @@ const InsumoModal: React.FC<InsumoModalProps> = ({ open, onClose, productId }) =
                     {insumo.denominacion}
                   </Typography>
                   <Typography variant="h6" gutterBottom>
-                 ${insumo.precioVenta}
+                    ${insumo.precioVenta}
                   </Typography>
                 </CardContent>
               </Box>
@@ -93,7 +93,7 @@ const modalStyle = {
   transform: 'translate(-50%, -50%)',
   bgcolor: 'background.paper',
   boxShadow: 24,
-  p: 4,
+  p: 3,
 };
 
 export default InsumoModal;
