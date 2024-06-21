@@ -46,7 +46,7 @@ const Rutas: React.FC = () => {
             />
           }
         />
-        <Route path="/" element={<Main />} />
+        <Route path="/" element={<Main  addToCart={(productId: number, products: IProducto[]) => addToCart(productId, products)}/>} />
       </Routes>
     </div>
   );

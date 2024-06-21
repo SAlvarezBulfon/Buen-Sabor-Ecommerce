@@ -1,11 +1,17 @@
 import React from 'react';
-import { Box, Container, Grid, Typography } from '@mui/material';
+import { Box, Container, Grid, Typography, Divider } from '@mui/material';
 import BenefitsSection from './BenefitsSection';
 import TestimonialsSection from './TestimonialsSection';
 import ContactSection from './ContactSection';
 import AboutUsSection from './AboutUsSection';
+import PopularItems from './PopularItems';
+import PromocionSection from './PromocionSection';
 
-const Main: React.FC = () => {
+interface ProductosProps {
+  addToCart: (productId: number, products: any[]) => void;
+}
+
+const Main: React.FC<ProductosProps> = ({ addToCart }) => {
   return (
     <div>
       <Container sx={{ my: 4 }}>
@@ -19,10 +25,27 @@ const Main: React.FC = () => {
             </Typography>
           </Grid>
           <Grid item xs={12} md={6}>
-            <img src="https://plus.unsplash.com/premium_photo-1713793236003-bf10d934825e?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Comida Rápida" style={{ width: '100%', height: 'auto', borderRadius: '1rem' }} />
+            <img
+              src="https://plus.unsplash.com/premium_photo-1713793236003-bf10d934825e?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt="Comida Rápida"
+              style={{ width: '100%', height: 'auto', borderRadius: '1rem' }}
+            />
           </Grid>
         </Grid>
       </Container>
+
+      <Box sx={{ my: 7 }}>
+        <PopularItems addToCart={addToCart} />
+      </Box>
+
+      <Box sx={{ my: 4 }}>
+        <Divider />
+      </Box>
+
+      <Box sx={{ my: 4 }}>
+        <PromocionSection addToCart={addToCart} />
+      </Box>
+      
       <Box sx={{ my: 4 }}>
         <BenefitsSection />
       </Box>

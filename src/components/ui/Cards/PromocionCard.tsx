@@ -45,7 +45,7 @@ const PromocionCard: React.FC<PromocionCardProps> = ({ promocion, addToCart }) =
             </Typography>
           </CardContent>
         </CardActionArea>
-        <Box>
+        <Box p={1}>
           <Button
             onClick={handleAddToCart}
             fullWidth
@@ -56,14 +56,6 @@ const PromocionCard: React.FC<PromocionCardProps> = ({ promocion, addToCart }) =
             sx={{mb: 1}}
           >
             {isLoading ? 'Agregando...' : 'Agregar al carrito'}
-          </Button>
-          <Button
-            onClick={() => setModalOpen(true)}
-            fullWidth
-            variant="outlined"
-            color="primary"
-          >
-            Ver Detalles
           </Button>
         </Box>
       </Card>

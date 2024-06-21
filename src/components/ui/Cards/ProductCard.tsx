@@ -77,14 +77,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart }) => {
           >
             {isLoading ? 'Agregando...' : 'Agregar al carrito'}
           </Button>
-          <Button
-            onClick={handleViewDetails}
-            fullWidth
-            variant="outlined"
-            color="primary"
-          >
-            Ver Detalles
-          </Button>
         </Box>
       </Card>
       {showProductModal && (
