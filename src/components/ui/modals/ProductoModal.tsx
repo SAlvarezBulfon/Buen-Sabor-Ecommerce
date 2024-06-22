@@ -77,14 +77,11 @@ const ProductoModal: React.FC<ProductoModalProps> = ({ open, onClose, productId 
                   <Typography variant="h5" component="h2" gutterBottom>
                     {producto.denominacion}
                   </Typography>
-                  <Typography variant="subtitle1" gutterBottom>
-                    {producto.descripcion}
-                  </Typography>
                   <Typography variant="h6" gutterBottom>
                     ${producto.precioVenta}
                   </Typography>
                   <Typography variant="body1" gutterBottom>
-                    <strong>Preparación:</strong> {producto.preparacion}
+                    <strong>Descripción:</strong> {producto.descripcion}
                   </Typography>
                 </CardContent>
               </Box>

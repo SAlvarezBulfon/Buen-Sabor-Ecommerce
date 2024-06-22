@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Container, Grid, Typography, Divider } from '@mui/material';
+import { Box, Container, Grid, Typography, Divider, useMediaQuery } from '@mui/material';
 import BenefitsSection from './BenefitsSection';
 import TestimonialsSection from './TestimonialsSection';
 import ContactSection from './ContactSection';
@@ -12,12 +12,19 @@ interface ProductosProps {
 }
 
 const Main: React.FC<ProductosProps> = ({ addToCart }) => {
+  const isMobile = useMediaQuery('(max-width:600px)');
+
   return (
     <div>
       <Container sx={{ my: 4 }}>
         <Grid container spacing={4} alignItems="center">
           <Grid item xs={12} md={6}>
-            <Typography variant="h2" component="h1" gutterBottom>
+            <Typography
+              variant="h2"
+              component="h1"
+              gutterBottom
+              sx={{ fontSize: isMobile ? '1.85rem' : '3rem' }}
+            >
               Buen Sabor: Deliciosa Comida Rápida
             </Typography>
             <Typography variant="body1" paragraph>

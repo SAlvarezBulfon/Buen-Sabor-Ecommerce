@@ -1,13 +1,24 @@
 import React from 'react';
-import { Box, Typography, Button, Grid, Card, CardContent, CardMedia, Container } from '@mui/material';
+import { Box, Typography, Button, Grid, Card, CardContent, CardMedia, Container, useMediaQuery } from '@mui/material';
 
 const AboutUsSection: React.FC = () => {
+  const isMobile = useMediaQuery('(max-width:600px)');
+
   return (
     <Box sx={{ py: 6, backgroundColor: '#c62828', color: '#fff', textAlign: 'center' }}>
-      <Typography variant="h4" component="h2" gutterBottom>
+      <Typography 
+        variant="h4" 
+        component="h2" 
+        gutterBottom
+        sx={{ fontSize: isMobile ? '1.5rem' : '2rem' }}
+      >
         Quiénes Somos
       </Typography>
-      <Typography variant="body1" gutterBottom>
+      <Typography 
+        variant="body1" 
+        gutterBottom
+        sx={{ fontSize: isMobile ? '1rem' : '1.25rem' }}
+      >
         Somos una empresa dedicada a brindarte las mejores experiencias culinarias. Conoce más sobre nosotros:
       </Typography>
       <Container>
@@ -21,7 +32,11 @@ const AboutUsSection: React.FC = () => {
                 alt="Equipo"
               />
               <CardContent sx={{ flexGrow: 1 }}>
-                <Typography gutterBottom variant="h6">
+                <Typography 
+                  gutterBottom 
+                  variant="h6"
+                  sx={{ fontSize: isMobile ? '1rem' : '1.25rem' }}
+                >
                   Nuestro Equipo
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
@@ -39,7 +54,11 @@ const AboutUsSection: React.FC = () => {
                 alt="Misión"
               />
               <CardContent sx={{ flexGrow: 1 }}>
-                <Typography gutterBottom variant="h6">
+                <Typography 
+                  gutterBottom 
+                  variant="h6"
+                  sx={{ fontSize: isMobile ? '1rem' : '1.25rem' }}
+                >
                   Nuestra Misión
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
@@ -57,7 +76,11 @@ const AboutUsSection: React.FC = () => {
                 alt="Visión"
               />
               <CardContent sx={{ flexGrow: 1 }}>
-                <Typography gutterBottom variant="h6">
+                <Typography 
+                  gutterBottom 
+                  variant="h6"
+                  sx={{ fontSize: isMobile ? '1rem' : '1.25rem' }}
+                >
                   Nuestra Visión
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
@@ -68,7 +91,7 @@ const AboutUsSection: React.FC = () => {
           </Grid>
         </Grid>
       </Container>
-      <Button variant="contained" color="secondary" size="large" style={{ marginTop: 20 }}>
+      <Button variant="contained" color="secondary" size="large" sx={{ mt: 4 }}>
         ¡Conócenos más!
       </Button>
     </Box>

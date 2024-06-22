@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Typography, TextField, Box, Container, Grid, Button, CircularProgress, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
+import { Typography, TextField, Box, Container, Grid, Button, CircularProgress, MenuItem, Select, FormControl, InputLabel, useMediaQuery } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
 import IProducto from '../../../types/IProducto';
 import ICategoria from '../../../types/ICategoria';
 import ProductCard from '../../ui/Cards/ProductCard';
 import ProductoService from '../../../services/ProductoService';
 import CategoriaService from '../../../services/CategoriaService';
+import NoResultsCard from '../../ui/Cards/NoResultsCard';
 
 const productoService = new ProductoService();
 const categoriaService = new CategoriaService();
@@ -23,6 +24,7 @@ const ProductosPage: React.FC<ProductosPageProps> = ({ addToCart }) => {
   const [categories, setCategories] = useState<ICategoria[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<number | null>(Number(localStorage.getItem('selectedCategory')) || null);
   const [sortOrder, setSortOrder] = useState(localStorage.getItem('sortOrder') || '');
+  const isMobile = useMediaQuery('(max-width:600px)');
   const pageSize = 10;
   const url = import.meta.env.VITE_API_URL;
 
@@ -37,14 +39,14 @@ const ProductosPage: React.FC<ProductosPageProps> = ({ addToCart }) => {
     };
 
     fetchCategories();
-  }, []);
+  }, [url]);
 
   const fetchProducts = useCallback(async () => {
     setLoading(true);
     try {
       let endpoint = `${url}/eCommerce/allArticulos`;
 
-      if (searchTerm) {
+      if (searchTerm.trim()) {
         endpoint = `${url}/eCommerce/buscador/${searchTerm}`;
       } else if (selectedCategory !== null && sortOrder === 'menosPrecio') {
         endpoint = `${url}/eCommerce/menoPrecio/${selectedCategory}`;
@@ -62,7 +64,7 @@ const ProductosPage: React.FC<ProductosPageProps> = ({ addToCart }) => {
     } finally {
       setLoading(false);
     }
-  }, [page, searchTerm, selectedCategory, sortOrder, url]);
+  }, [page, searchTerm, selectedCategory, sortOrder, url, pageSize]);
 
   useEffect(() => {
     fetchProducts();
@@ -99,10 +101,19 @@ const ProductosPage: React.FC<ProductosPageProps> = ({ addToCart }) => {
   return (
     <Container sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
       <Box display="flex" flexDirection="column" alignItems="center" mt={3}>
-        <Typography variant="h3" gutterBottom>
+        <Typography 
+          variant="h3" 
+          gutterBottom
+          sx={{ fontSize: isMobile ? '2rem' : '3rem' }}
+        >
           Delicias Rápidas
         </Typography>
-        <Typography variant="subtitle1" gutterBottom>
+        <Typography 
+          variant="subtitle1" 
+          gutterBottom
+          textAlign='center'
+          sx={{ fontSize: isMobile ? '1rem' : '1.25rem' }}
+        >
           Encuentra tu comida favorita en nuestra tienda
         </Typography>
         <Box
@@ -158,38 +169,46 @@ const ProductosPage: React.FC<ProductosPageProps> = ({ addToCart }) => {
         {loading ? (
           <CircularProgress />
         ) : (
-          <Grid container spacing={2}>
-            {products.map((product) => (
-              <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
-                <Box display="flex" justifyContent="center" width="100%">
-                  <ProductCard product={product} addToCart={addToCart} />
-                </Box>
-              </Grid>
-            ))}
-          </Grid>
+          products.length === 0 ? (
+            <NoResultsCard />
+          ) : (
+            <Grid container spacing={2}>
+              {products.map((product) => (
+                <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
+                  <Box display="flex" justifyContent="center" width="100%">
+                    <ProductCard product={product} addToCart={addToCart} />
+                  </Box>
+                </Grid>
+              ))}
+            </Grid>
+          )
         )}
       </Box>
-      <Box display="flex" justifyContent="center" mt={2} mb={2}>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
-          disabled={page === 0}
-        >
-          Anterior
-        </Button>
-        <Typography variant="body1" style={{ margin: '0 20px', alignSelf: 'center' }}>
-          Página {page + 1} de {totalPages}
-        </Typography>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => setPage((prev) => Math.min(prev + 1, totalPages - 1))}
-          disabled={page === totalPages - 1}
-        >
-          Siguiente
-        </Button>
-      </Box>
+      {products.length > 0 && (
+        <Box display="flex" justifyContent="center" mt={2} mb={2}>
+          {page > 0 && (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
+            >
+              Anterior
+            </Button>
+          )}
+          <Typography variant="body1" sx={{ margin: '0 20px', alignSelf: 'center', fontSize: isMobile ? '0.875rem' : '1rem' }}>
+            Página {page + 1} de {totalPages}
+          </Typography>
+          {page < totalPages - 1 && (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => setPage((prev) => Math.min(prev + 1, totalPages - 1))}
+            >
+              Siguiente
+            </Button>
+          )}
+        </Box>
+      )}
     </Container>
   );
 };

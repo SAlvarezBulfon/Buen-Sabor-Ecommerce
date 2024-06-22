@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Box, CircularProgress, Typography, Button, Container } from '@mui/material';
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate de react-router-dom
+import { Box, CircularProgress, Typography, Button, Container, useMediaQuery } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import Carousel from 'react-bootstrap/Carousel';
 import PromocionService from '../../../services/PromocionService';
 import IPromocion from '../../../types/IPromocion';
@@ -15,7 +15,8 @@ const PromotionsSection: React.FC<PromotionsSectionProps> = ({ addToCart }) => {
   const [loading, setLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
-  const navigate = useNavigate(); // Usa el hook useNavigate
+  const navigate = useNavigate();
+  const isMobile = useMediaQuery('(max-width:600px)');
 
   useEffect(() => {
     const fetchPromocion = async () => {
@@ -79,10 +80,19 @@ const PromotionsSection: React.FC<PromotionsSectionProps> = ({ addToCart }) => {
           <>
             <Box sx={{ display: 'flex', alignItems: 'stretch', justifyContent: 'center', flexDirection: { xs: 'column', md: 'row' }, gap: 3 }}>
               <Box sx={{ textAlign: { xs: 'center', md: 'left' }, maxWidth: '500px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                <Typography variant="h4" gutterBottom>
+                <Typography
+                  variant="h4"
+                  gutterBottom
+                  sx={{ fontSize: isMobile ? '1.5rem' : '2rem' }}
+                >
                   Especial del día
                 </Typography>
-                <Typography variant="h2" color="primary" gutterBottom>
+                <Typography
+                  variant="h2"
+                  color="primary"
+                  gutterBottom
+                  sx={{ fontSize: isMobile ? '2rem' : '2.5rem' }}
+                >
                   {promocion.denominacion}
                 </Typography>
                 <Typography variant="body1" paragraph>

@@ -1,6 +1,5 @@
-// PopularItems.tsx
 import { useEffect, useState } from 'react';
-import { Grid, Typography, CircularProgress, Container, Button, Box } from '@mui/material';
+import { Grid, Typography, CircularProgress, Container, Button, Box, useMediaQuery } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import ProductoService from '../../../services/ProductoService';
 import IProducto from '../../../types/IProducto';
@@ -19,6 +18,7 @@ const PopularItems: React.FC<PopularItemsProps> = ({ addToCart }) => {
     const [loading, setLoading] = useState(true);
     const url = import.meta.env.VITE_API_URL;
     const navigate = useNavigate();
+    const isMobile = useMediaQuery('(max-width:600px)');
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -45,10 +45,10 @@ const PopularItems: React.FC<PopularItemsProps> = ({ addToCart }) => {
 
     return (
         <Container sx={{ my: 4 }}>
-            <Typography variant="h4" align="center" gutterBottom>
+            <Typography variant="h4" align="center" gutterBottom sx={{ fontSize: isMobile ? '1.5rem' : '2rem' }}>
                 Explora nuestra variedad de productos
             </Typography>
-            <Typography variant="subtitle1" align="center" gutterBottom sx={{mb: 3}}>
+            <Typography variant="subtitle1" align="center" gutterBottom sx={{ mb: 3, fontSize: isMobile ? '1rem' : '1.25rem' }}>
                 Descubre una selección de nuestros productos para satisfacer tus gustos y necesidades
             </Typography>
             <Box display={{ xs: 'none', md: 'block' }}>
