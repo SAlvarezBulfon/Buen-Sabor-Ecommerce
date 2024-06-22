@@ -58,7 +58,7 @@ const ProductoModal: React.FC<ProductoModalProps> = ({ open, onClose, productId 
                           className="d-block w-100"
                           src={imagen.url}
                           alt={imagen.name}
-                          style={{ height: isMobile ? '200px' : '400px', objectFit: 'cover' }} // Ajuste de altura de la imagen
+                          style={{ height: isMobile ? '200px' : '300px', objectFit: 'cover' }} // Ajuste de altura de la imagen
                         />
                       </Carousel.Item>
                     ))}
