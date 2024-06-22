@@ -23,7 +23,7 @@ const Main: React.FC<ProductosProps> = ({ addToCart }) => {
               variant="h2"
               component="h1"
               gutterBottom
-              sx={{ fontSize: isMobile ? '1.85rem' : '3rem' }}
+              sx={{ fontSize: isMobile ? '1.85rem' : '3rem', fontWeight: 'semibold' }}
             >
               Buen Sabor: Deliciosa Comida Rápida
             </Typography>
