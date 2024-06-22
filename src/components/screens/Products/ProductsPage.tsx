@@ -28,6 +28,7 @@ const ProductosPage: React.FC<ProductosPageProps> = ({ addToCart }) => {
   const pageSize = 10;
   const url = import.meta.env.VITE_API_URL;
 
+  // Obtener categorías al montar el componente
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -41,6 +42,8 @@ const ProductosPage: React.FC<ProductosPageProps> = ({ addToCart }) => {
     fetchCategories();
   }, [url]);
 
+
+// Esta función construye dinámicamente el endpoint adecuado basado en el término de búsqueda, la categoría seleccionada y el orden de clasificación, y luego obtiene los productos paginados desde el backend.
   const fetchProducts = useCallback(async () => {
     setLoading(true);
     try {
@@ -70,6 +73,7 @@ const ProductosPage: React.FC<ProductosPageProps> = ({ addToCart }) => {
     fetchProducts();
   }, [fetchProducts]);
 
+    // Guardar el estado en localStorage
   useEffect(() => {
     localStorage.setItem('searchTerm', searchTerm);
     localStorage.setItem('page', page.toString());
@@ -77,6 +81,9 @@ const ProductosPage: React.FC<ProductosPageProps> = ({ addToCart }) => {
     localStorage.setItem('sortOrder', sortOrder);
   }, [searchTerm, page, selectedCategory, sortOrder]);
 
+    // Manejadores de cambios en búsqueda, categoría, y orden de clasificación
+
+    //Estos manejadores actualizan los estados correspondientes y reinician la página a 0 cada vez que el usuario realiza un cambio en la búsqueda, categoría o el orden de clasificación.
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
     setPage(0);

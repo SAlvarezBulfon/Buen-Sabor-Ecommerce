@@ -20,6 +20,8 @@ const PromocionesPage: React.FC<PromocionesPageProps> = ({ addToCart }) => {
   const isMobile = useMediaQuery('(max-width:600px)');
   const pageSize = 10;
 
+
+  //Esta función se encarga de buscar las promociones, ya sea filtradas por un término de búsqueda o todas, dependiendo de si searchTerm está vacío o no. Utiliza useCallback para memorizar la función y evitar que se recree en cada renderizado.
   const fetchPromociones = useCallback(async () => {
     setLoading(true);
     try {
@@ -47,6 +49,8 @@ const PromocionesPage: React.FC<PromocionesPageProps> = ({ addToCart }) => {
     localStorage.setItem('pagePromo', page.toString());
   }, [searchTerm, page]);
 
+
+  // Actualiza el estado del término de búsqueda y resetea la página a 0 cada vez que el usuario escribe en el campo de búsqueda.
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
     setPage(0);
