@@ -53,7 +53,7 @@ const PopularItems: React.FC<PopularItemsProps> = ({ addToCart }) => {
             </Typography>
             <Box display={{ xs: 'none', md: 'block' }}>
                 <Grid container spacing={4}>
-                    {products.map((product) => (
+                    {products.slice(0, 3).map((product) => (
                         <Grid item key={product.id} xs={12} sm={6} md={4}>
                             <ProductCard product={product} addToCart={addToCart} />
                         </Grid>
@@ -62,7 +62,7 @@ const PopularItems: React.FC<PopularItemsProps> = ({ addToCart }) => {
             </Box>
             <Box display={{ xs: 'block', md: 'none' }} className="custom-carousel-container">
                 <Carousel className="custom-carousel">
-                    {products.map((product) => (
+                    {products.slice(0, 3).map((product) => (
                         <Carousel.Item key={product.id}>
                             <ProductCard product={product} addToCart={addToCart} />
                         </Carousel.Item>
